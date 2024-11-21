@@ -1,4 +1,5 @@
-import "./intro.css";
+import React from 'react';
+import './intro.css';
 
 interface IntroProps {
   onNext: () => void;
