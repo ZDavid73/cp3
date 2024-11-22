@@ -1,29 +1,22 @@
-import "./dashboard.css";
+import React from 'react';
+import { usePoemContext } from '../../contexts/PoemCreationContext';
+import './dashboard.css';
 
-interface DashboardProps {
-  poems: {
-    id: string;
-    title: string;
-    excerpt: string;
-  }[];
-  onViewPoem: (id: string) => void;
-}
+const Dashboard: React.FC = () => {
+  const { poems, selectPoem } = usePoemContext();
 
-const Dashboard: React.FC<DashboardProps> = ({ poems, onViewPoem }) => {
   return (
     <div className="dashboard">
-      <h1 className="dashboard-title">Poem Dashboard</h1>
-      <div className="poem-list">
-        {poems.map((poem) => (
-          <div key={poem.id} className="poem-card">
-            <h2 className="poem-title">{poem.title}</h2>
-            <p className="poem-excerpt">{poem.excerpt}...</p>
-            <button className="poem-button" onClick={() => onViewPoem(poem.id)}>
-              Read More
-            </button>
-          </div>
+      <h1>Poetry Dashboard</h1>
+      <button onClick={() => (window.location.href = '/form')}>Create New Poem</button>
+      <ul>
+        {poems.map(poem => (
+          <li key={poem.id} onClick={() => selectPoem(poem.id)}>
+            <h2>{poem.title}</h2>
+            <p>Author: {poem.author}</p>
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 };

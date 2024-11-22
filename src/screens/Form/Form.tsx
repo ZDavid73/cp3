@@ -1,35 +1,26 @@
-import React, { useState } from "react";
-import "./form.css";
-
-import PoemStepOne from "../../components/PoemStepOne/PoemStepOne";
-import PoemStepTwo from "../../components/PoemStepTwo/PoemStepTwo";
-import PoemStepThree from "../../components/PoemStepThree/PoemStepThree";
+import React, { useState } from 'react';
+import { usePoemContext } from '../../contexts/PoemCreationContext';
+import './form.css';
 
 const Form: React.FC = () => {
-  const [step, setStep] = useState(1);
+  const { addPoem } = usePoemContext();
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [content, setContent] = useState('');
 
-  const handleStep1Next = () => {
-    setStep(2);
-  };
-
-  const handleStep2Next = () => {
-    setStep(3);
-  };
-
-  const handleStep3Finish = () => {
-    setStep(1);
+  const handleSubmit = () => {
+    addPoem({ id: Date.now().toString(), title, author, content });
+    window.location.href = '/dashboard';
   };
 
   return (
-    <>
-      {step === 1 && <PoemStepOne onNext={handleStep1Next} />}
-      {step === 2 && (
-        <PoemStepTwo onNext={handleStep2Next} onBack={() => setStep(1)} />
-      )}
-      {step === 3 && (
-        <PoemStepThree onFinish={handleStep3Finish} onBack={() => setStep(2)} />
-      )}
-    </>
+    <div className="form">
+      <h1>Create a New Poem</h1>
+      <input placeholder="Title" value={title} onChange={e => setTitle(e.target.value)} />
+      <input placeholder="Author" value={author} onChange={e => setAuthor(e.target.value)} />
+      <textarea placeholder="Content" value={content} onChange={e => setContent(e.target.value)} />
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
   );
 };
 

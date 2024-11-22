@@ -1,11 +1,10 @@
-// src/App.tsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Intro from "./screens/Intro/Intro";
-import Dashboard from "./screens/Dashboard/Dashboard";
-import Detail from "./screens/Detail/Detail";
-import Form from "./screens/Form/Form";
-import { PoemProvider } from "./contexts/PoemContext";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Intro from './screens/Intro/Intro';
+import Dashboard from './screens/Dashboard/Dashboard';
+import Form from './screens/Form/Form';
+import Detail from './screens/Detail/Detail';
+import { PoemProvider } from './contexts/PoemContext';
 
 const App: React.FC = () => {
   return (

@@ -1,25 +1,22 @@
-import { Poem } from "../../types/poems";
-import "./detail.css";
+import React from 'react';
+import { usePoemContext } from '../../contexts/PoemCreationContext';
+import { useParams, useNavigate } from 'react-router-dom';
+import './detail.css';
 
-interface DetailProps {
-  poem: Poem;
-  onBack: () => void;
-}
+const Detail: React.FC = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { poems } = usePoemContext();
+  const poem = poems.find(p => p.id === id);
 
-const Detail: React.FC<DetailProps> = ({ poem, onBack }) => {
-  const { author, linecount, lines, title } = poem;
-
-  const content = "Why is this not rendering? ..... 😅";
+  if (!poem) return <p>Poem not found!</p>;
 
   return (
     <div className="detail">
-      <button className="back-button" onClick={onBack}>
-        &larr; Back
-      </button>
-      <h1 className="title">{title}</h1>
-      <h2 className="author">By {author}</h2>
-      <div className="content">{content}</div>
-      <p className="lines">{linecount}</p>
+      <button onClick={() => navigate('/dashboard')}>&larr; Back</button>
+      <h1>{poem.title}</h1>
+      <p>By {poem.author}</p>
+      <div>{poem.content}</div>
     </div>
   );
 };
